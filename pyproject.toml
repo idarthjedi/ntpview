@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "ntpview"
+version = "0.1.0"
+description = "Visual tool for review and interpretation of NTP Peer and Loop Stats logs."
+authors = ["idarthjedi <jediah@logiodice.com>"]
+license = "GPLv3"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.11.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
