@@ -39,7 +39,7 @@
            </attribute>
            <layout class="QHBoxLayout" name="horizontalLayout_8">
             <item>
-             <widget class="QListView" name="listNTPLog">
+             <widget class="QListWidget" name="listNTPLog">
               <property name="sizePolicy">
                <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
                 <horstretch>0</horstretch>
@@ -51,6 +51,11 @@
                 <width>0</width>
                 <height>400</height>
                </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>16</pointsize>
+               </font>
               </property>
              </widget>
             </item>
