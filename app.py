@@ -34,6 +34,6 @@ if __name__ == '__main__':
         if os.path.isfile(sys.argv[1]):
             show_main_window(sys.argv[1])
         else:
-            show_main_window()
+            show_main_window(None)
     else:
-        show_main_window()
+        show_main_window(None)
