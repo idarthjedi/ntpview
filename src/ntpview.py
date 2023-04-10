@@ -19,7 +19,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 
 # TODO: Add additional imports, and update above copyright details
 from PyQt6.QtWidgets import QMainWindow, QFileDialog
-from src.ntp_enums import FileType
+from src.ntp_enums import FileType, FirstResults, SecondResults, FourthResults, FirstByte, SecondByte, FourthByte
 from pathlib import Path
 import datetime
 import math
@@ -413,11 +413,46 @@ class Ui_MainWindow(QMainWindow):
         self.textTime.setText(str(datetime.timedelta(seconds=float(record[1]))))
 
         self.textPeerIP.setText(str(record[2]))
-        self.label_3.setText(f"Peer Status: {str(record[3])}")
+        peer_status = str(record[3])
+        self.label_3.setText(f"Peer Status: {peer_status}")
         self.textOffset.setText(str(record[4]))
         self.textDelay.setText(str(record[5]))
         self.textDispersion.setText(str(record[6]))
         self.textSkew.setText(str(record[7]))
+
+        self.update_status_word(int(f"0x{peer_status}", 16))
+
+    def update_status_word(self, psw: int):
+        # for further information on status word please see the following articles
+        #   1: https://www.eecis.udel.edu/~mills/ntp/html/decode.html#peer
+        #   2: https://thomasvachon.com/articles/ntp-peerstats-status-word-secret-decoder-ring/
+
+        fResults = FirstResults()
+        sResults = SecondResults()
+        lResults = FourthResults()
+
+        status_code = (psw & 0xF800) >> 8
+        select_code = (psw & 0x0700) >> 8
+        count_code = (psw & 0x00F0) >> 4
+        code_code = (psw & 0x000F)
+
+        # Translate the Status Field (first 5 bits of the first byte)
+        label_results = []
+        for status in FirstByte:
+            check = status_code & status.value
+            if check > 0:
+                label_results.append(f"{fResults[status.value]}")
+
+        self.labelFirstByte.setText(f"0x{status_code:x}\t{', '.join(label_results)}")
+
+        # Translate the Select Field (last 3 bits of the first byte)
+        label_results.clear()
+        self.labelSecondByte.setText(f"0x{select_code:x}\t{sResults[select_code]}")
+
+        # Translate the code found in the last 4 bits of the second byte
+        self.labelTFByte.setText(f"0x{code_code:x}\t{lResults[code_code]} (Repeat: {count_code}x)")
+
+        # print(if (FirstByte.CONFIG & status_code) else 0)
 
     def load_record(self, selected_item):
         if len(selected_item) <= 0:
