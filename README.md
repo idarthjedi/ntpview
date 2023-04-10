@@ -12,8 +12,7 @@ The viewer will translate the various different fields (such as the Modified Jul
 # Installation
 
 ```shell
-git clone https://github.com/idarthjedi/ntpview
-cd ntpview
-poetry shell
+git clone https://github.com/idarthjedi/ntpview && cd ntpview
+poetry install && poetry shell
 python3 app.py
 ```
