@@ -376,12 +376,12 @@ class Ui_MainWindow(QMainWindow):
         self.label_6.setText(_translate("MainWindow", "Delay"))
         self.label_8.setText(_translate("MainWindow", "Skew"))
         self.label_3.setText(_translate("MainWindow", "Peer Status:"))
-        self.label_17.setText(_translate("MainWindow", "First Byte:"))
+        self.label_17.setText(_translate("MainWindow", "Status:"))
         self.labelFirstByte.setText(_translate("MainWindow", "08\tbcst\tbroadcast association"))
-        self.label_19.setText(_translate("MainWindow", "Second Byte:"))
+        self.label_19.setText(_translate("MainWindow", "Select:"))
         self.labelSecondByte.setText(
             _translate("MainWindow", "01\tsel_falsetick\tx\tdiscarded by intersection algorithm"))
-        self.label_20.setText(_translate("MainWindow", "Third & Fourth Byte:"))
+        self.label_20.setText(_translate("MainWindow", "Code & Count:"))
         self.labelTFByte.setText(_translate("MainWindow", "01\tmobilize association mobilized"))
         self.menu_File.setTitle(_translate("MainWindow", "&File"))
         self.menu_Help.setTitle(_translate("MainWindow", "&Help"))
@@ -450,7 +450,7 @@ class Ui_MainWindow(QMainWindow):
         self.labelSecondByte.setText(f"0x{select_code:x}\t{sResults[select_code]}")
 
         # Translate the code found in the last 4 bits of the second byte
-        self.labelTFByte.setText(f"0x{code_code:x}\t{lResults[code_code]} (Repeat: {count_code}x)")
+        self.labelTFByte.setText(f"0x{code_code:x}\t{lResults[code_code]} (Count: {count_code}x)")
 
         # print(if (FirstByte.CONFIG & status_code) else 0)
 
@@ -463,7 +463,6 @@ class Ui_MainWindow(QMainWindow):
         # ['60042', '892.170', '132.163.96.2', '169a', '-0.000374539', '0.044791018', '0.016764463', '0.000544924\n']
 
         self.display_form(items)
-
 
     def load_file(self):
         self.clear_form()
